@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="de.esd.zeiterfassung.view.LocalDateConverter" />
+
+        <variable
+                name="viewModel"
+                type="de.esd.zeiterfassung.view.FiltersViewModel" />
+
+        <variable
+                name="suchfilterFragment"
+                type="de.esd.zeiterfassung.view.SuchfilterFragment" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:bind="http://schemas.android.com/tools"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dip"
+            android:orientation="vertical">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_to_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_to_parent"
+                    android:layout_weight="0.5"
+                    bind:clickListener="@{() -> suchfilterFragment.openDatePickerStartDate()}"
+                    bind:hintText="@{@string/start}"
+                    bind:inputText="@{LocalDateConverter.dateToString(viewModel.observableStartDate)}"
+                    bind:isDate="@{true}"
+                    bind:isEnabled="@{true}" />
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_to_parent"
+                    android:layout_weight="0.5"
+                    bind:clickListener="@{() -> suchfilterFragment.openDatePickerEndDate()}"
+                    bind:hintText="@{@string/ende}"
+                    bind:inputText="@{LocalDateConverter.dateToString(viewModel.observableEndDate)}"
+                    bind:isDate="@{true}"
+                    bind:isEnabled="@{true}" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:divider="@drawable/divider_list_item"
+                android:focusable="true"
+                android:onClick="@{() -> suchfilterFragment.openSelectLeistungsnehmerDialog()}"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_edit_text_neue_zeiterfassung_leistungsnehmer"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/filter_leistungsnehmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.observableLeistungsnehmer}"
+                    android:textSize="20sp"
+                    tools:text="max,muster" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_to_parent"
+                android:divider="@drawable/divider_list_item"
+                android:focusable="true"
+                android:onClick="@{() -> suchfilterFragment.openSelectLeistungserbringerDialog()}"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_edit_text_neue_zeiterfassung_leistungserbringer"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/filter_leistungserbringer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.observableLeistungserbringer}"
+                    android:textSize="20sp"
+                    tools:text="max,muster" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_to_parent"
+                android:divider="@drawable/divider_list_item"
+                android:focusable="true"
+                android:onClick="@{() -> suchfilterFragment.openSelectTaetigkeitDialog()}"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/taetigkeit"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/filter_teatigkeit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.observableTaetigkeit}"
+                    android:textSize="20sp"
+                    tools:text="a,b" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|end">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dip"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:onClick="@{() -> suchfilterFragment.applyFilters()}"
+                    android:src="@drawable/btn_confirm"
+                    app:borderWidth="0dip"
+                    app:fabSize="normal" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

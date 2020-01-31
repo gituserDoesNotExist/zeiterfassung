@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation_zeiterfassung"
+        app:startDestination="@id/startFragment">
+    <fragment
+            android:id="@+id/appConfigurationFragment"
+            android:name="de.esd.zeiterfassung.view.AppConfigurationFragment"
+            android:label="AppConfigurationFragment"/>
+    <fragment
+            android:id="@+id/arbeitsverhaltnisUebersichtFragment"
+            android:name="de.esd.zeiterfassung.view.ArbeitsverhaltnisUebersichtFragment"
+            android:label="ArbeitsverhaltnisUebersichtFragment">
+        <action
+                android:id="@+id/action_arbeitsverhaltnisUebersichtFragment_to_suchfilterFragment"
+                app:destination="@id/suchfilterFragment" />
+        <action
+                android:id="@+id/action_arbeitsverhaltnisUebersichtFragment_to_editArbeitsverhaeltnisDetailsFragment"
+                app:destination="@id/editZeitArbeitsverhaeltnisDetailsFragment" />
+        <action
+                android:id="@+id/action_arbeitsverhaltnisUebersichtFragment_to_editStueckArbeitsverhaeltnisFragment"
+                app:destination="@id/editStueckArbeitsverhaeltnisFragment" />
+        <action
+                android:id="@+id/action_arbeitsverhaltnisUebersichtFragment_to_addArbeitsverhaeltnisFragment2"
+                app:destination="@id/addArbeitsverhaeltnisFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/editZeitArbeitsverhaeltnisDetailsFragment"
+            android:name="de.esd.zeiterfassung.view.EditZeitArbeitsverhaeltnisFragment"
+            android:label="EditArbeitsverhaeltnisDetailsFragment"/>
+    <fragment
+            android:id="@+id/startFragment"
+            android:name="de.esd.zeiterfassung.view.StartFragment"
+            android:label="fragment_blank"
+            tools:layout="@layout/fragment_start" />
+    <action
+            android:id="@+id/action_global_appConfigurationFragment"
+            app:destination="@id/appConfigurationFragment" />
+    <fragment
+            android:id="@+id/suchfilterFragment"
+            android:name="de.esd.zeiterfassung.view.SuchfilterFragment"
+            android:label="SuchfilterFragment" />
+    <fragment
+            android:id="@+id/editStueckArbeitsverhaeltnisFragment"
+            android:name="de.esd.zeiterfassung.view.EditStueckArbeitsverhaeltnisFragment"
+            android:label="EditStueckArbeitsverhaeltnisFragment" />
+    <fragment
+            android:id="@+id/addArbeitsverhaeltnisFragment"
+            android:name="de.esd.zeiterfassung.view.AddArbeitsverhaeltnisFragment"
+            android:label="AddArbeitsverhaeltnisFragment" />
+    <action android:id="@+id/action_global_arbeitsverhaltnisUebersichtFragment" app:destination="@id/arbeitsverhaltnisUebersichtFragment" />
+</navigation>

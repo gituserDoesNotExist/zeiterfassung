@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="de.esd.zeiterfassung.view.AppConfigurationViewModel" />
+
+        <variable
+                name="appConfigurationFragment"
+                type="de.esd.zeiterfassung.view.AppConfigurationFragment" />
+
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_to_parent"
+                    bind:clickListener="@{(v) -> appConfigurationFragment.openParticipantsListPopupWindow(v)}"
+                    bind:hintText="@{@string/label_edit_text_app_user}"
+                    bind:inputText="@{viewModel.selectedAppUserForAnzeige}"
+                    bind:isEnabled="@{true}"
+                    bind:isInvalid="@{viewModel.appUserMissing}" />
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                <LinearLayout
+                        android:id="@+id/linear_layout_stundensaetze"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_marginEnd="5dip"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_to_parent"
+                            android:text="@string/stundensaetze"
+                            android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_stundensaetze"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/margin_to_parent"
+                            android:scrollbars="vertical" />
+
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="5dip"
+                        android:src="@drawable/divider" />
+
+                <LinearLayout
+                        android:id="@+id/linear_layout_stueckkosten"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_marginStart="5dip"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_to_parent"
+                            android:text="@string/title_kosten_pro_stueck"
+                            android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_kosten_pro_stueck"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/margin_to_parent"
+                            android:scrollbars="vertical" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/colorSecondary"
+                android:contentDescription="@string/zeiterfassung_config_confirm_content_description"
+                android:onClick="@{() -> appConfigurationFragment.saveAppUser()}"
+                android:src="@drawable/btn_confirm"
+                app:borderWidth="0dip"
+                app:fabSize="normal" />
+
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+            <include
+                    layout="@layout/esd_progressbar"
+                    bind:showProgressbar="@{appConfigurationFragment.showProgressbar}" />
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="de.esd.zeiterfassung.view.BigDecimalConverter" />
+
+        <import type="de.esd.zeiterfassung.view.LocalDateConverter" />
+
+        <variable
+                name="viewModel"
+                type="de.esd.zeiterfassung.view.ArbeitsverhaeltnisUebersichtViewModel" />
+
+        <variable
+                name="arbeitsverhaltnisUebersichtFragment"
+                type="de.esd.zeiterfassung.view.ArbeitsverhaltnisUebersichtFragment" />
+
+
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_to_parent"
+                android:layout_marginTop="@dimen/margin_to_parent"
+                android:layout_marginBottom="@dimen/margin_to_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal" />
+
+        <ImageView
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="5dip"
+                android:layout_below="@id/recycler_view_filters"
+                android:src="@drawable/divider" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_arbeitsverhaeltnisse"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_marginStart="@dimen/margin_to_parent"
+                android:layout_marginEnd="@dimen/margin_to_parent"
+                android:layout_above="@id/bottom_bar"
+                android:layout_below="@id/separator"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_arbeitsverhaeltnis" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/bottom_bar"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dip"
+                android:onClick="@{() -> arbeitsverhaltnisUebersichtFragment.openAddArbeitsverhaeltnisFragment()}"
+                android:src="@drawable/ic_add_black_48dp"
+                app:backgroundTint="@color/colorSecondary"
+                app:fabSize="normal" />
+
+        <include
+                layout="@layout/esd_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                bind:showProgressbar="@{viewModel.showProgressbar}" />
+
+        <LinearLayout
+                android:id="@+id/bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:paddingTop="@dimen/margin_to_parent"
+                android:paddingBottom="@dimen/margin_to_parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <LinearLayout
+                    android:id="@+id/layout_gesamtkosten"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gesamtkosten"
+                        android:textColor="@color/colorOnPrimary"
+                        android:textStyle="bold" />
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/betrag_in_euro(BigDecimalConverter.bigDecimalToString(viewModel.gesamtkosten))}"
+                        android:textColor="@color/colorOnPrimary"
+                        android:textStyle="bold"
+                        tools:text="500.43 €" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

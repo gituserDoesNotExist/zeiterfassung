@@ -1,0 +1,81 @@
+<resources>
+
+    <style name="Theme.Esd" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorOnPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorSecondary">@color/colorSecondary</item>
+        <item name="android:textColorSecondary">@color/colorOnPrimary
+        </item> <!--for overflow icon-->
+
+        <item name="colorError">@color/colorError</item>
+
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="buttonStyle">@style/Theme.Esd.Button.CKButton</item>
+        <item name="imageButtonStyle">@style/Theme.Esd.Button.CKButton</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.Esd.Toolbar" parent="Theme.Esd">
+        <item name="actionMenuTextColor">@color/colorOnPrimary</item>
+    </style>
+
+
+    <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Esd.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/Theme.Esd.TabLayout.TextAppearance</item>
+        <item name="android:background">@color/colorSurface</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
+        <item name="tabIconTint">@color/colorOnSurface</item>
+        <item name="tabRippleColor">@color/colorPrimary</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.Esd.TabLayout.TextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorOnSurfaceSixtyPercentOpacity</item>
+    </style>
+
+
+    <style name="Theme.Esd.Button.CKButton" parent="android:style/Widget.Button">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_margin">0dip</item>
+        <item name="android:background">@color/colorSecondary</item>
+    </style>
+
+    <style name="Theme.Esd.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/colorOnBackground</item>
+    </style>
+
+    <style name="Theme.Esd.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_layout_outlined_box</item>
+    </style>
+
+    <style name="Theme.Esd.TextInputEditText">
+        <item name="android:padding">8dip</item>
+        <item name="android:textColor">@color/color_enabled_disabled</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="Theme.Esd.TextAppearance.Design.Hint" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="de.esd.zeiterfassung.EsdInputType" />
+
+        <import type="de.esd.zeiterfassung.view.LocalDateConverter" />
+
+        <import type="de.esd.zeiterfassung.view.IntConverter" />
+
+        <import type="de.esd.zeiterfassung.view.ZonedDateTimeConverter" />
+
+        <import type="de.esd.zeiterfassung.view.BigDecimalConverter" />
+
+        <variable
+                name="viewModel"
+                type="de.esd.zeiterfassung.view.UpsertStueckArbeitsverhaeltnisViewModel" />
+
+
+        <variable
+                name="upsertArbeitsverhaeltnisDetailsFragment"
+                type="de.esd.zeiterfassung.view.UpsertStueckArbeitsverhaeltnisFragment" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dip">
+
+        <LinearLayout
+                android:id="@+id/metadaten_and_kosten"
+                visibleOrGone="@{viewModel.isUpdateMode}"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                    layout="@layout/arbeitsverhaeltnis_metadaten"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    bind:viewModel="@{viewModel}" />
+
+            <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kosten" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dip"
+                        android:paddingEnd="5dip"
+                        android:text="@{@string/kosten_in_euro(BigDecimalConverter.bigDecimalToString(viewModel.arbeitsverhaeltnisForAnzeige.kosten))}"
+                        tools:text="500 €" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/title_and_date"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/metadaten_and_kosten">
+
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Theme.Esd.TextInputLayout.OutlinedBox"
+                    errorneous="@{viewModel.titleMissing}"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <AutoCompleteTextView
+                        android:id="@+id/autocomplete_title"
+                        style="@style/Theme.Esd.TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.editable}"
+                        android:hint="@string/title_required"
+                        android:text="@={viewModel.arbeitsverhaeltnisForAnzeige.title}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    bind:clickListener="@{() -> upsertArbeitsverhaeltnisDetailsFragment.openDatePickerDialog()}"
+                    bind:hintText="@{@string/datum}"
+                    bind:inputText="@{LocalDateConverter.dateToString(viewModel.arbeitsverhaeltnisForAnzeige.datum)}"
+                    bind:isDate="@{true}"
+                    bind:isEnabled="@{viewModel.editable}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/layout_produktname_and_stueckzahl"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintBottom_toTopOf="@id/layout_leistungserbringer_und_nehmer"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/title_and_date">
+
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    bind:clickListener="@{(v) -> upsertArbeitsverhaeltnisDetailsFragment.openProduktListPopUp(v)}"
+                    bind:hintText="@{@string/produktname_required}"
+                    bind:inputText="@{viewModel.arbeitsverhaeltnisForAnzeige.produktName}"
+                    bind:isEnabled="@{viewModel.editable}"
+                    bind:isInvalid="@{viewModel.produktnameMissing}" />
+
+            <Space
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    bind:hintText="@{@string/stueckzahl_required}"
+                    bind:inputText="@={IntConverter.intToString(viewModel.arbeitsverhaeltnisForAnzeige.stueckzahl)}"
+                    bind:inputType="@{EsdInputType.NUMBER}"
+                    bind:isEnabled="@{viewModel.editable}"
+                    bind:isInvalid="@{viewModel.anzahlMissing}" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/layout_leistungserbringer_und_nehmer"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintBottom_toTopOf="@id/kommentar"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/layout_produktname_and_stueckzahl">
+
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    bind:clickListener="@{(v) -> upsertArbeitsverhaeltnisDetailsFragment.openLeistungsnehmerListPopUp(v)}"
+                    bind:hintText="@{@string/label_edit_text_neue_zeiterfassung_leistungsnehmer}"
+                    bind:inputText="@{viewModel.arbeitsverhaeltnisForAnzeige.leistungsnehmer}"
+                    bind:isEnabled="@{viewModel.editable}" />
+
+            <include
+                    layout="@layout/esd_text_input"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    bind:clickListener="@{(v) -> upsertArbeitsverhaeltnisDetailsFragment.openLeistungserbringerListPopUp(v)}"
+                    bind:hintText="@{@string/label_edit_text_neue_zeiterfassung_leistungserbringer}"
+                    bind:inputText="@{viewModel.arbeitsverhaeltnisForAnzeige.leistungserbringer}"
+                    bind:isEnabled="@{viewModel.editable}" />
+
+
+        </LinearLayout>
+
+
+        <include
+                android:id="@+id/kommentar"
+                layout="@layout/esd_text_input"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/layout_leistungserbringer_und_nehmer"
+                bind:hintText="@{@string/label_edit_text_neue_zeiterfassung_kommentar}"
+                bind:inputText="@={viewModel.arbeitsverhaeltnisForAnzeige.kommentar}"
+                bind:isEnabled="@{viewModel.editable}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dip"
+                android:backgroundTint="@color/colorSecondary"
+                android:onClick="@{()-> upsertArbeitsverhaeltnisDetailsFragment.addOrUpdate()}"
+                android:src="@drawable/btn_confirm"
+                app:borderWidth="0dip"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:visible="@{viewModel.editable}" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

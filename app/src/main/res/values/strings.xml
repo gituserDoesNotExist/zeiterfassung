@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Zeiterfassung</string>
+    <!--general -->
+    <string name="start">Start</string>
+    <string name="ende">Ende</string>
+    <string name="filter">filter</string>
+    <string name="zeitraum">Zeitraum:</string>
+    <string name="cancel">Cancel</string>
+    <string name="uhr">Uhr</string>
+    <string name="colon">:</string>
+    <string name="betrag_in_euro">%1$s €</string>
+    <string name="ok">OK</string>
+    <string name="von">Von</string>
+    <string name="kosten_in_euro">%1$s €</string>
+    <string name="euro_pro_stunde">%1$s € / Stunde</string>
+    <string name="kosten_pro_stueck">%1$s € / Stück</string>
+    <string name="bis">Bis</string>
+    <string name="euro">€</string>
+    <string name="datum">Datum</string>
+    <string name="beschreibung">Beschreibung</string>
+    <string name="sortieren">Sortieren:</string>
+    <string name="uhrzeit">Uhrzeit</string>
+    <string name="delete">delete</string>
+    <string name="mit">mit</string>
+
+
+    <string name="leistungserbringer">Leistungserbringer:</string>
+    <string name="leistungsnehmer">Leistungsnehmer:</string>
+    <string name="title_activity_zeiterfassung">Zeiterfassung</string>
+    <string name="label_btn_start_timerecording_activity">Zeiterfassung</string>
+    <string name="content_description_timerecording_image">timerecording image</string>
+    <string name="label_edit_text_neue_zeiterfassung_kommentar">Kommentar</string>
+    <string name="dauer">Dauer (Stunden)</string>
+    <string name="dauer_required">Dauer (Stunden) *</string>
+    <string name="title">Titel</string>
+    <string name="title_required">Titel *</string>
+    <string name="label_edit_text_neue_zeiterfassung_leistungserbringer">Leistungserbringer</string>
+    <string name="title_configure_app_user_fragment">Konfiguration</string>
+    <string name="label_who_is_app_user">Wer benutzt die App?</string>
+    <string name="zeiterfassung_config_confirm_content_description">Descritpion</string>
+    <string name="add_arbeitsverhaeltnis_date_von_bis">bis</string>
+    <string name="label_edit_text_neue_zeiterfassung_leistungsnehmer">Leistungsnehmer</string>
+    <string name="taetigkeit">Tätigkeit</string>
+    <string name="taetigkeit_required">Tätigkeit *</string>
+    <string name="title_fragment_configuration">Konfiguration</string>
+    <string name="title_fragment_arbeitsvheraeltnis_ubersicht">Übersicht</string>
+    <string name="title_fragment_suchfilter">Suchfilter</string>
+    <string name="text_fragment_welcome_zeiterfassung">Willkommen zur Zeiterfassungsapp. Was wollen Sie tun?</string>
+    <string name="erstellt_von">Erstellt von:</string>
+    <string name="erstellt_am">Erstellt am</string>
+    <string name="settings">Settings</string>
+    <string name="geleistete_stunden">Geleistete Stunden:</string>
+    <string name="label_edit_text_neue_zeiterfassung_fahrzeug">Fahrzeug</string>
+    <string name="label_edit_text_neue_zeiterfassung_maschine">Anbaugerät</string>
+    <string name="title_zeit_arbeitsverhaeltnis">%1$s hilft %2$s beim %3$s</string>
+    <string name="title_stueck_arbeitsverhaeltnis">%1$s hilft %2$s</string>
+    <string name="loeschen">Löschen?</string>
+    <string name="fehlende_daten">Bitte Daten vollständig angeben</string>
+    <string name="label_edit_text_app_user">Appuser</string>
+    <string name="gesamtkosten">Gesamtkosten:</string>
+    <string name="kosten">Kosten:</string>
+    <string name="title_edit_arbeitsverhaeltnis_fragment">Details</string>
+    <string name="stueckzahl">Anzahl</string>
+    <string name="stueckzahl_required">Anzahl *</string>
+    <string name="zeit_plus_uhr">%1$s Uhr</string>
+    <string name="title_add_arbeitsverhaeltnis_fragment">Anlegen</string>
+    <string name="wert_eingeben">Fehlender Wert</string>
+    <string name="keine_auswahl">- (Keine Auswahl)</string>
+    <string name="bearbeiten">bearbeiten</string>
+    <string name="produktname">Produktname</string>
+    <string name="produktname_required">Produktname *</string>
+    <string name="stundensaetze">Stundensätze</string>
+    <string name="title_kosten_pro_stueck">Kosten pro Einheit</string>
+
+
+</resources>
