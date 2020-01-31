@@ -114,8 +114,8 @@
                     android:layout_weight="0.4"
                     bind:clickListener="@{() -> upsertArbeitsverhaeltnisDetailsFragment.openDatePickerDialog()}"
                     bind:hintText="@{@string/datum}"
-                    bind:isDate="@{true}"
                     bind:inputText="@{LocalDateConverter.dateToString(viewModel.arbeitsverhaeltnisForAnzeige.datum)}"
+                    bind:isDate="@{true}"
                     bind:isEnabled="@{viewModel.editable}" />
 
         </LinearLayout>
@@ -183,7 +183,8 @@
                     bind:clickListener="@{(v) -> upsertArbeitsverhaeltnisDetailsFragment.openLeistungsnehmerListPopUp(v)}"
                     bind:hintText="@{@string/label_edit_text_neue_zeiterfassung_leistungsnehmer}"
                     bind:inputText="@{viewModel.arbeitsverhaeltnisForAnzeige.leistungsnehmer}"
-                    bind:isEnabled="@{viewModel.editable}" />
+                    bind:isEnabled="@{viewModel.editable}"
+                    bind:isInvalid="@{viewModel.leistungsnehmerMissing}" />
 
             <include
                     layout="@layout/esd_text_input"

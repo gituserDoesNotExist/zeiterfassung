@@ -4,6 +4,7 @@ package de.esd.zeiterfassung.view
 import android.view.View
 import de.esd.zeiterfassung.BaseActivity
 import de.esd.zeiterfassung.R
+import de.esd.zeiterfassung.config.Person
 import de.esd.zeiterfassung.core.EventInfo
 import de.esd.zeiterfassung.core.ZeitArbeitsverhaeltnis
 import io.reactivex.Single
@@ -23,12 +24,14 @@ class AddZeitArbeitsverhaeltnisFragment : UpsertZeitArbeitsverhaeltnisFragment()
         upsertViewModel.initEventInfoAndArbeitsverhaeltnis(EventInfo(), ZeitArbeitsverhaeltnis())
     }
 
-    override fun prepareView(rootView: View, config: CalendarConfiguration) {
+    override fun prepareView(rootView: View) {
         upsertViewModel.isUpdateMode.set(false)
         upsertViewModel.editable.set(true)
-        upsertViewModel.setLeistungserbringer(config.appUser)
     }
 
+    override fun prepareLeistungserbringer(appUser: Person) {
+        upsertViewModel.setLeistungserbringer(appUser)
+    }
 
     override fun upsert(): Single<Long> {
         return upsertViewModel.addArbeitsverhaeltnis()//

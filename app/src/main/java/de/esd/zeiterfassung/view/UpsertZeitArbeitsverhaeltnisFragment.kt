@@ -1,7 +1,6 @@
 package de.esd.zeiterfassung.view
 
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,9 @@ abstract class UpsertZeitArbeitsverhaeltnisFragment : UpsertArbeitsverhaeltnisFr
     private lateinit var anbaugeraetListPopupWindow: ListPopupWindow
     private lateinit var taetigkeitListPopupWindow: ListPopupWindow
 
+    override fun resetValidation() {
+        upsertViewModel.resetValidation()
+    }
 
     override fun createRequiredListPopupWindows(activity: BaseActivity, calendarConfig: CalendarConfiguration) {
         fahrzeugListPopupWindow = createListPopupWindowFahrzeug(activity, calendarConfig.fahrzeuge)
@@ -45,22 +47,6 @@ abstract class UpsertZeitArbeitsverhaeltnisFragment : UpsertArbeitsverhaeltnisFr
             setAdapter(titlesAdapter)
             threshold = 1
         }
-        return binding.root
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentUpsertZeitArbeitsverhaeltnisBinding.inflate(inflater, container, false)
-        binding.viewModel = upsertViewModel
-        binding.upsertArbeitsverhaeltnisDetailsFragment = this
-
-        (activity as? BaseActivity)?.let {
-            val adapter = TitlesArrayAdapter(it.applicationContext, appConfigurationViewModel.titles)
-            binding.autocompleteTitle.apply {
-                setAdapter(adapter)
-                threshold = 1
-            }
-        }
-
         return binding.root
     }
 

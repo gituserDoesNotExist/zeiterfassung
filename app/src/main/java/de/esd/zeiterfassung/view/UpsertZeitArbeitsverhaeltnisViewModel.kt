@@ -27,6 +27,11 @@ class UpsertZeitArbeitsverhaeltnisViewModel(zeiterfassungRepository: Zeiterfassu
         arbeitsverhaeltnisForAnzeige.copyValuesFromArbeitsverhaeltnis(this.zeitArbeitsverhaeltnis)
     }
 
+    override fun resetValidation() {
+        super.resetValidation()
+        taetigkeitMissing.set(false)
+        dauerMissing.set(false)
+    }
 
     override fun updateArbeitsverhaeltnis(): Single<String> {
         return performUpsertOperation {
@@ -46,10 +51,12 @@ class UpsertZeitArbeitsverhaeltnisViewModel(zeiterfassungRepository: Zeiterfassu
         val taetigkeitSet = arbeitsverhaeltnisForAnzeige.taetigkeit.get().isNotBlank()
         val dauerGreaterThanZero = Arbeitszeit(arbeitsverhaeltnisForAnzeige.arbeitszeit.get()).getTimeInMinutes() > 0
         val titleSet = arbeitsverhaeltnisForAnzeige.title.get().isNotBlank()
+        val leistungsnehmerSet = arbeitsverhaeltnisForAnzeige.leistungsnehmer.get().isNotBlank()
         taetigkeitMissing.set(!taetigkeitSet)
         dauerMissing.set(!dauerGreaterThanZero)
         titleMissing.set(!titleSet)
-        return taetigkeitSet && dauerGreaterThanZero && titleSet
+        leistungsnehmerMissing.set(!leistungsnehmerSet)
+        return taetigkeitSet && dauerGreaterThanZero && titleSet && leistungsnehmerSet
     }
 
 

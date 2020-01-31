@@ -25,6 +25,12 @@ class UpsertStueckArbeitsverhaeltnisViewModel(zeiterfassungRepository: Zeiterfas
     }
 
 
+    override fun resetValidation() {
+        super.resetValidation()
+        anzahlMissing.set(false)
+        produktnameMissing.set(false)
+    }
+
     override fun updateArbeitsverhaeltnis(): Single<String> {
         return performUpsertOperation {
             takeRelevantValuesFromArbeitseinsatzForAnzeige()
@@ -43,10 +49,12 @@ class UpsertStueckArbeitsverhaeltnisViewModel(zeiterfassungRepository: Zeiterfas
         val stueckzahlSet = arbeitsverhaeltnisForAnzeige.stueckzahl.get() > 0
         val produktSet = arbeitsverhaeltnisForAnzeige.produktName.get().isNotBlank()
         val titleSet = arbeitsverhaeltnisForAnzeige.title.get().isNotBlank()
+        val leistungsnehmerSet = arbeitsverhaeltnisForAnzeige.leistungsnehmer.get().isNotBlank()
         anzahlMissing.set(!stueckzahlSet)
         produktnameMissing.set(!produktSet)
         titleMissing.set(!titleSet)
-        return stueckzahlSet && produktSet && titleSet
+        leistungsnehmerMissing.set(!leistungsnehmerSet)
+        return stueckzahlSet && produktSet && titleSet && leistungsnehmerSet
     }
 
 
@@ -81,5 +89,6 @@ class UpsertStueckArbeitsverhaeltnisViewModel(zeiterfassungRepository: Zeiterfas
     fun deleteArbeitsverhaeltnis(): Single<String> {
         return zeiterfassungRepository.deleteArbeitsverhaeltnis(eventInfo)
     }
+
 
 }

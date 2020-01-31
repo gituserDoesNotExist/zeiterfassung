@@ -22,6 +22,9 @@ abstract class UpsertStueckArbeitsverhaeltnisFragment : UpsertArbeitsverhaeltnis
 
     private lateinit var produktListPopupWindow: ListPopupWindow
 
+    override fun resetValidation() {
+        viewModel.resetValidation()
+    }
 
     override fun createRequiredListPopupWindows(activity: BaseActivity, calendarConfig: CalendarConfiguration) {
         produktListPopupWindow = createListPopupWindowProdukt(activity, calendarConfig.produkte)

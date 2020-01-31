@@ -4,6 +4,7 @@ package de.esd.zeiterfassung.view
 import android.view.View
 import de.esd.zeiterfassung.BaseActivity
 import de.esd.zeiterfassung.R
+import de.esd.zeiterfassung.config.Person
 import de.esd.zeiterfassung.core.EventInfo
 import de.esd.zeiterfassung.core.StueckArbeitsverhaeltnis
 import io.reactivex.Single
@@ -24,12 +25,14 @@ class AddStueckArbeitsverhaeltnisFragment : UpsertStueckArbeitsverhaeltnisFragme
         viewModel.initEventInfoAndArbeitsverhaeltnis(EventInfo(), StueckArbeitsverhaeltnis())
     }
 
-    override fun prepareView(rootView: View, config: CalendarConfiguration) {
+    override fun prepareView(rootView: View) {
         viewModel.isUpdateMode.set(false)
         viewModel.editable.set(true)
-        viewModel.setLeistungserbringer(config.appUser)
     }
 
+    override fun prepareLeistungserbringer(appUser: Person) {
+        viewModel.setLeistungserbringer(appUser)
+    }
 
     override fun upsert(): Single<Long> {
         return viewModel.addArbeitsverhaeltnis()

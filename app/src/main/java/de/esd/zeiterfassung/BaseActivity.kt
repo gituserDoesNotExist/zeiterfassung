@@ -20,11 +20,11 @@ abstract class BaseActivity : AppCompatActivity() {
         EsdExceptionHandler(this)
     }
 
-    abstract fun getParentViewForSnackbar() : View
+    abstract fun getParentViewForSnackbar(): View
 
 
     fun <T : ViewModel> provideViewModel(clazz: Class<T>): T {
-        return ViewModelProviders.of(this,ZeiterfassungViewModelFactory(this.applicationContext)).get(clazz)
+        return ViewModelProviders.of(this, ZeiterfassungViewModelFactory(this.applicationContext)).get(clazz)
     }
 
     override fun onStop() {

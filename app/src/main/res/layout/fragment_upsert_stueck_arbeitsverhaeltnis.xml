@@ -185,7 +185,8 @@
                     bind:clickListener="@{(v) -> upsertArbeitsverhaeltnisDetailsFragment.openLeistungsnehmerListPopUp(v)}"
                     bind:hintText="@{@string/label_edit_text_neue_zeiterfassung_leistungsnehmer}"
                     bind:inputText="@{viewModel.arbeitsverhaeltnisForAnzeige.leistungsnehmer}"
-                    bind:isEnabled="@{viewModel.editable}" />
+                    bind:isEnabled="@{viewModel.editable}"
+                    bind:isInvalid="@{viewModel.leistungsnehmerMissing}" />
 
             <include
                     layout="@layout/esd_text_input"

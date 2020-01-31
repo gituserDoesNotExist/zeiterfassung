@@ -25,10 +25,12 @@ import io.reactivex.functions.Consumer
 abstract class UpsertArbeitsverhaeltnisFragment : Fragment() {
 
 
-    protected lateinit var appConfigurationViewModel: AppConfigurationViewModel
+    private lateinit var appConfigurationViewModel: AppConfigurationViewModel
 
     protected lateinit var leistungserbringerListPopupWindow: ListPopupWindow
     protected lateinit var leistungsnehmerListPopupWindow: ListPopupWindow
+
+    abstract fun resetValidation()
 
     abstract fun fragmentTitle(): String
 
@@ -41,11 +43,13 @@ abstract class UpsertArbeitsverhaeltnisFragment : Fragment() {
     protected abstract fun createView(inflater: LayoutInflater, container: ViewGroup?,
                                       titlesAdapter: TitlesArrayAdapter?): View
 
-    protected abstract fun prepareView(rootView: View, config: CalendarConfiguration)
+    protected abstract fun prepareView(rootView: View)
+
+    protected open fun prepareLeistungserbringer(appUser: Person) {}
 
     protected abstract fun upsert(): Single<*>
 
-    fun <T: Any>addOrUpdate() {
+    fun addOrUpdate() {
         val disposable = upsert().observeOn(AndroidSchedulers.mainThread())//
             .subscribe(Consumer {
                 ZeiterfassungNavigation.getNavigation(findNavController()).toUebersicht()
@@ -63,33 +67,35 @@ abstract class UpsertArbeitsverhaeltnisFragment : Fragment() {
             appConfigurationViewModel = activity.provideViewModel(AppConfigurationViewModel::class.java).apply {
                 loadTitles()
             }
+
             setupArbeitsverhaeltnis(activity)
 
-            appConfigurationViewModel.calendarConfig.observe(this, Observer {
-                leistungserbringerListPopupWindow = createListPopupWindowLeistungserbringer(activity, it.teilnehmer)
-                leistungsnehmerListPopupWindow = createListPopupWindowLeistungsnehmer(activity, it.teilnehmer)
-                createRequiredListPopupWindows(activity, it)
-            })
         }
-    }
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var titlesAdapter: TitlesArrayAdapter? = null
-        (activity as? BaseActivity)?.let {
-            titlesAdapter = TitlesArrayAdapter(it.applicationContext, appConfigurationViewModel.titles)
-        }
-        val rootView = createView(inflater, container, titlesAdapter)
-        appConfigurationViewModel.calendarConfig.observe(this, Observer {
-            prepareView(rootView, it)
-        })
-        return rootView
     }
 
     private fun setupArbeitsverhaeltnis(activity: BaseActivity) {
         initArbeitsverhaeltnisViewModel(activity)
         initArbeitsverhaeltnis(activity)
+        resetValidation()
     }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var titlesAdapter: TitlesArrayAdapter? = null
+        (activity as? BaseActivity)?.let { activity ->
+            titlesAdapter = TitlesArrayAdapter(activity.applicationContext, appConfigurationViewModel.titles)
+            appConfigurationViewModel.calendarConfig.observe(this, Observer {
+                leistungserbringerListPopupWindow = createListPopupWindowLeistungserbringer(activity, it.teilnehmer)
+                leistungsnehmerListPopupWindow = createListPopupWindowLeistungsnehmer(activity, it.teilnehmer)
+                createRequiredListPopupWindows(activity, it)
+                prepareLeistungserbringer(it.appUser)
+            })
+        }
+        val rootView = createView(inflater, container, titlesAdapter)
+        prepareView(rootView)
+
+        return rootView
+    }
+
 
     private fun createListPopupWindowLeistungserbringer(it: AppCompatActivity, entries: List<Person>): ListPopupWindow {
         val dropdownEntries = mutableListOf(KeineAuswahl.value).apply { addAll(entries.map { it.name }) }

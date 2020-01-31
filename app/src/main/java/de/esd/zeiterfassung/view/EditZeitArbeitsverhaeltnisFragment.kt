@@ -33,7 +33,7 @@ class EditZeitArbeitsverhaeltnisFragment : UpsertZeitArbeitsverhaeltnisFragment(
         upsertViewModel.initEventInfoAndArbeitsverhaeltnis(eventInfo, arbeitsverhaeltnis)
     }
 
-    override fun prepareView(rootView: View, config: CalendarConfiguration) {
+    override fun prepareView(rootView: View) {
         setHasOptionsMenu(true)
         upsertViewModel.isUpdateMode.set(true)
         upsertViewModel.editable.set(false)

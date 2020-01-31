@@ -13,11 +13,17 @@ abstract class UpsertArbeitsverhaeltnisViewModel(protected val zeiterfassungRepo
     val isUpdateMode = ObservableBoolean()
     var editable = ObservableBoolean()
     var titleMissing = ObservableBoolean()
+    var leistungsnehmerMissing = ObservableBoolean()
 
     val config = zeiterfassungRepository.getConfiguration()
 
 
     lateinit var eventInfo: EventInfo
+
+    open fun resetValidation() {
+        titleMissing.set(false)
+        leistungsnehmerMissing.set(false)
+    }
 
     fun initEventInfo(eventInfo: EventInfo) {
         this.eventInfo = eventInfo.copy()

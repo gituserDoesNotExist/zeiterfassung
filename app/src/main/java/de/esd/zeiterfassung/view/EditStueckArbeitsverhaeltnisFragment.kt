@@ -33,7 +33,7 @@ class EditStueckArbeitsverhaeltnisFragment : UpsertStueckArbeitsverhaeltnisFragm
         viewModel.initEventInfoAndArbeitsverhaeltnis(eventInfo, arbeitsverhaeltnis)
     }
 
-    override fun prepareView(rootView: View, config: CalendarConfiguration) {
+    override fun prepareView(rootView: View) {
         setHasOptionsMenu(true)
         viewModel.isUpdateMode.set(true)
         viewModel.editable.set(false)
