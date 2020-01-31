@@ -49,10 +49,11 @@
                 android:id="@+id/recycler_view_arbeitsverhaeltnisse"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_marginStart="@dimen/margin_to_parent"
-                android:layout_marginEnd="@dimen/margin_to_parent"
                 android:layout_above="@id/bottom_bar"
                 android:layout_below="@id/separator"
+                android:layout_marginStart="@dimen/margin_to_parent"
+                android:layout_marginEnd="@dimen/margin_to_parent"
+                android:scrollbarThumbVertical="@drawable/esd_scrollbar"
                 android:scrollbars="vertical"
                 tools:listitem="@layout/item_arbeitsverhaeltnis" />
 
